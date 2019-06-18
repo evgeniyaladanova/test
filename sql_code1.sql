@@ -1,2 +1,1 @@
-drop table if exists test;
-create table test (id int);
+if not exists create table test (id int);
