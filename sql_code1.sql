@@ -1,1 +1,1 @@
-if not exists create table test (id int);
+create table if not exists test (id int);
