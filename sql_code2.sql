@@ -1,1 +1,1 @@
-create table if not exists table19 (id int);
+create table if not exists table200 (id int);
