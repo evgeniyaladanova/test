@@ -11,7 +11,7 @@ phases:
 
   pre_build:
     commands:
-      - echo "Pull down flyway tool"
+      - echo "#### PULL DOWN FLYWAY TOOL ####"
       - wget -qO- https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/7.8.1/flyway-commandline-7.8.1-linux-x64.tar.gz | tar xvz
 
   build:
@@ -20,9 +20,9 @@ phases:
 
   post_build:
     commands:
-      - echo "CURRENT MIGRATION STATUS"
+      - echo "#### CURRENT MIGRATION STATUS ####"
       - ./flyway-7.8.1/flyway -configFiles="sql/flyway_configurations/TEST_DB.conf" info  -user=$db_user -password=$db_pwd
-      - echo "PERFORM SQL MIGRATIONS"
+      - echo "#### PERFORM SQL MIGRATIONS ####"
       - ./flyway-7.8.1/flyway -configFiles="sql/flyway_configurations/TEST_DB.conf" migrate  -user=$db_user -password=$db_pwd
 
 
