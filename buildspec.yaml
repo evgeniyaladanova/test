@@ -1,9 +1,8 @@
 version: 0.2
 env:
   parameter-store:
-    db_user: 
-    db_pwd:
-    db_url: 
+    db_user: db_user
+    db_pwd: db_password
 
 phases:
   install:
@@ -23,5 +22,5 @@ phases:
   post_build:
     commands:
       - echo "CURRENT MIGRATION STATUS"
-      .fl
+      - flyway -configFiles="sql/flyway_configurations/TEST_DB.conf" info  -user=$db_user -password=$db_pwd
 
