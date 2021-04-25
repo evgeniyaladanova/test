@@ -3,6 +3,7 @@ env:
   parameter-store:
     db_user: db_user
     db_pwd: db_password
+    db_list: db_list
 
 phases:
   install:
@@ -20,9 +21,14 @@ phases:
 
   post_build:
     commands:
-      - echo "CURRENT MIGRATION STATUS"
-      - ./flyway-7.8.1/flyway -configFiles="sql/flyway_configurations/TEST_DB.conf" info  -user=$db_user -password=$db_pwd
-      - echo "PERFORM SQL MIGRATIONS"
-      - ./flyway-7.8.1/flyway -configFiles="sql/flyway_configurations/TEST_DB.conf" migrate  -user=$db_user -password=$db_pwd
+      - |-
+        for db in $db_list
+        do
+          echo "DB: $db"
+          echo "CURRENT MIGRATION STATUS"
+          ./flyway-7.8.1/flyway -configFiles="sql/flyway_configurations/$db.conf" info  -user=$db_user -password=$db_pwd
+          echo "PERFORM SQL MIGRATIONS"
+          ./flyway-7.8.1/flyway -configFiles="sql/flyway_configurations/$db.conf" migrate  -user=$db_user -password=$db_pwd
+        done
 
 
